@@ -7,53 +7,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="leftSide">
-            <input type="text" id="input" placeholder="Enter expression">
-            <div class="buttons">
-                <!-- 3x3 Grid of Number Buttons (1-9) -->
-                <div class="numberGrid">
-                    <button class="button">7</button>
-                    <button class="button">8</button>
-                    <button class="button">9</button>
+    <div class="container"> <!-- konteneris kas ietver kalkulatoru un vesturi -->
+        <div class="leftSide"> <!-- kalkulatora daļa -->
+            <input type="text" id="input" placeholder="Enter expression" readonly> <!-- lauks kur ievada visu -->
+            <div class="buttonGrid"> <!-- pogu grids -->
 
-                    <button class="button">4</button>
-                    <button class="button">5</button>
-                    <button class="button">6</button>
+                <!-- visas pogas -->
+                <button class="button" data-value="7">7</button>
+                <button class="button" data-value="8">8</button>
+                <button class="button" data-value="9">9</button> 
+                <button class="button" data-value="CLEAR">AC</button> 
 
-                    <button class="button">1</button>
-                    <button class="button">2</button>
-                    <button class="button">3</button>
-                </div>
+                <button class="button" data-value="4">4</button> 
+                <button class="button" data-value="5">5</button>
+                <button class="button" data-value="6">6</button>
+                <button class="button" data-value="+">+</button>
 
-                <!-- Operators Row -->
-                <div class="operatorGrid">
-                    <button class="button operator">+</button>
-                    <button class="button operator">-</button>
-                    <button class="button operator">/</button>
-                    <button class="button operator">*</button>
-                </div>
+                <button class="button" data-value="1">1</button>
+                <button class="button" data-value="2">2</button>
+                <button class="button" data-value="3">3</button>
+                <button class="button" data-value="-">-</button>
 
-                <!-- 0, DEL and CLEAR -->
-                <div class="bottomRow">
-                    <button class="button">0</button>
-                    <button class="button" id="del">DEL</button>
-                    <button class="button" id="clear">CLEAR</button>
-                </div>
+                <button class="button" data-value="0">0</button>
+                <button class="button" data-value="DEL">DEL</button>
+                <button class="button" data-value="/">/</button>
+                <button class="button" data-value="*">*</button>
 
-                <!-- Equals Button -->
-                <div class="equalsRow">
-                    <button class="button equals">=</button>
-                </div>
+                <button class="button equals" data-value="=">=</button>
             </div>
         </div>
 
-        <div class="rightSide">
-            <h4>HISTORY</h4>
+        <div class="rightSide"> <!-- vestures daļa -->
+            <h4>History</h4> 
             <button class="clearHistoryBtn">Clear History</button>
-            <div class="historyContainer"></div>
+            <div class="historyContainer"></div> <!-- vestures ierakstu konteiners -->
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js"></script> 
 </body>
 </html>

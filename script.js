@@ -1,95 +1,74 @@
-const buttons = document.querySelectorAll('.buttons button');
-const inputEl = document.querySelector('#input');
-const historyContainer = document.querySelector('.historyContainer');
-const clearHistoryBtn = document.querySelector('.clearHistoryBtn');
-const STORAGE_NAME = 'history_v4';
+const buttons = document.querySelectorAll('.buttonGrid .button'); // Atlasa visas pogas
+const inputEl = document.querySelector('#input'); // Atlasa ievades lauku
+const historyContainer = document.querySelector('.historyContainer'); // Atlasa vēstures konteineru
+const clearHistoryBtn = document.querySelector('.clearHistoryBtn'); // Atlasa pogu vēstures dzēšanai
 
-// Initialize history if it doesn't exist
-if (localStorage.getItem(STORAGE_NAME) === null) {
-    localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
+// Vēstures inicializācija
+if (!localStorage.getItem('history')) { // Pārbauda, vai vēsture eksistē
+    localStorage.setItem('history', JSON.stringify([])); // Izveido tukšu vēstures masīvu
 }
+refreshHistory(); // Atjauno vēsturi lapā
 
-refreshHistory();
+// Pogu spiesanas apstrāde
+buttons.forEach(button => { // Cikls katrai pogai
+    const value = button.getAttribute('data-value'); // Iegūst pogas vērtību
 
-// Handle all number buttons and operators
-buttons.forEach(button => {
-    const symbol = button.innerHTML;
-
-    button.addEventListener('click', () => {
-        if (symbol === 'CLEAR') {
-            inputEl.value = ''; // Clear the input
-        } else if (symbol === 'DEL') {
-            inputEl.value = inputEl.value.slice(0, -1); // Remove last character
-        } else if (symbol === '=') {
-            handleEqual();
-        } else {
-            inputEl.value += symbol; // Append symbol to input value
-        }
+    button.addEventListener('click', () => { // Klikšķa notikuma klausītājs
+        if (value === 'CLEAR') inputEl.value = ''; // Notīra ievades lauku
+        else if (value === 'DEL') inputEl.value = inputEl.value.slice(0, -1); // Noņem pēdējo simbolu
+        else if (value === '=') handleEqual(); // Aprēķina rezultātu
+        else inputEl.value += value; // Pievieno ievadīto vērtību
     });
 });
 
-// Handle calculation when "=" is pressed
+// Funkcija "=" pogas apstrādei
 function handleEqual() {
     try {
-        const expression = inputEl.value;  // Get the current expression
-        const result = eval(expression);  // Evaluate the expression
+        const expression = inputEl.value; // Ievadītā izteiksme
+        const result = eval(expression); // Aprēķina rezultātu
 
-        if (result !== undefined && result !== null) {
-            inputEl.value = result; // Set the result in the input field
-            saveHistory(expression, result); // Save the original expression and result to history
-            refreshHistory(); // Refresh the history display
-        } else {
-            inputEl.value = 'ERROR';
-        }
-    } catch (error) {
-        inputEl.value = 'ERROR'; // Handle invalid expressions
+        inputEl.value = result; // Parāda rezultātu ievades laukumā
+        saveHistory(expression, result); // Saglabā rezultātu vēsturē
+        refreshHistory(); // Atjauno vēstures sadaļu
+    } catch {
+        inputEl.value = 'ERROR'; // Kļūda, ja nepareiza izteiksme
     }
 }
 
-// Save both the original expression and the result to history
+// Funkcija rezultāta un izteiksmes saglabāšanai vēsturē
 function saveHistory(expression, result) {
-    let historyElements = JSON.parse(localStorage.getItem(STORAGE_NAME));
-    historyElements.push({ input: expression, result: result });
-    localStorage.setItem(STORAGE_NAME, JSON.stringify(historyElements));
+    let history = JSON.parse(localStorage.getItem('history')); // Iegūst vēsturi
+    history.push({ input: expression, result }); // Pievieno jaunu ierakstu
+    localStorage.setItem('history', JSON.stringify(history)); // Saglabā atjaunoto vēsturi
 }
 
-// Refresh the history section
+// Funkcija vēstures atjaunošanai
 function refreshHistory() {
-    historyContainer.innerHTML = ''; // Clear the current history
+    const history = JSON.parse(localStorage.getItem('history')); // Iegūst vēsturi
+    historyContainer.innerHTML = history.map((entry, index) => `
+        <div class="historyItem"> <!-- Katrs vēstures ieraksts -->
+            <div>${entry.input}</div> <!-- Rāda izteiksmi -->
+            <div>= ${entry.result}</div> <!-- Rāda rezultātu -->
+            <button class="deleteHistoryBtn" data-index="${index}">Delete</button> <!-- Dzēšanas poga --> 
+        </div>
+    `).join(''); 
 
-    let historyElements = JSON.parse(localStorage.getItem(STORAGE_NAME));
-
-    historyElements.forEach((entry, index) => {
-        const historyItem = document.createElement('div');
-        historyItem.classList.add('historyItem');
-        historyItem.innerHTML = `
-            <div>${entry.input}</div>
-            <div>= ${entry.result}</div>
-            <button class="deleteHistoryBtn" data-index="${index}">Delete</button>
-        `;
-        historyContainer.appendChild(historyItem);
-    });
-
-    // Add delete functionality to each history item
-    const deleteBtns = document.querySelectorAll('.deleteHistoryBtn');
-    deleteBtns.forEach(btn => {
-        btn.addEventListener('click', (event) => {
-            const index = event.target.getAttribute('data-index');
-            deleteHistoryItem(index);
-        });
+    // Katras vēstures dzēšanas pogas apstrāde
+    document.querySelectorAll('.deleteHistoryBtn').forEach(btn => {
+        btn.addEventListener('click', (event) => deleteHistoryItem(event.target.getAttribute('data-index'))); // Dzēš izvēlēto vēstures ierakstu
     });
 }
 
-// Delete a specific history item
+// Funkcija konkrēta vēstures ieraksta dzēšanai
 function deleteHistoryItem(index) {
-    let historyElements = JSON.parse(localStorage.getItem(STORAGE_NAME));
-    historyElements.splice(index, 1); // Remove the history entry
-    localStorage.setItem(STORAGE_NAME, JSON.stringify(historyElements)); // Update storage
-    refreshHistory(); // Refresh the history display
+    let history = JSON.parse(localStorage.getItem('history')); // Iegūst vēsturi
+    history.splice(index, 1); // Dzēš konkrēto ierakstu
+    localStorage.setItem('history', JSON.stringify(history)); // Saglabā atjaunoto vēsturi
+    refreshHistory(); // Atjauno vēsturi lapā
 }
 
-// Clear all history
+// Vēstures tīrīšana
 clearHistoryBtn.addEventListener('click', () => {
-    localStorage.setItem(STORAGE_NAME, JSON.stringify([])); // Clear all history
-    refreshHistory(); // Refresh the history display
+    localStorage.setItem('history', JSON.stringify([])); // Iestata tukšu vēsturi
+    refreshHistory(); // Atjauno vēsturi lapā
 });

@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
+    margin: 0; 
+    padding: 0; 
     box-sizing: border-box;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f1eb; /* Soft cream background */
+    background-color: #f4f1eb;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,12 +18,11 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 1fr 320px;
-    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 320px; 
     gap: 20px;
-    background-color: #fff;
+    background-color: #fff; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+    padding: 30px; 
     border-radius: 20px;
     max-width: 800px;
     width: 100%;
@@ -32,45 +31,30 @@ body {
 .leftSide {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 #input {
-    font-size: 2rem;
+    font-size: 2rem; 
     padding: 12px;
     background-color: #fff;
-    border: 2px solid #f0e6d6; /* Light cream border */
+    border: 2px solid #f0e6d6;
     border-radius: 10px;
-    margin-bottom: 20px;
-    text-align: right;
+    margin-bottom: 20px; 
+    text-align: right; 
     color: #333;
 }
 
-.buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.numberGrid,
-.operatorGrid {
+.buttonGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-.bottomRow,
-.equalsRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
 button {
-    padding: 20px;
+    padding: 20px; 
     font-size: 1.6rem;
     color: white;
-    background-color: #f9d8d1; /* Soft pink/cream */
+    background-color: #f9d8d1; 
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -78,43 +62,36 @@ button {
 }
 
 button:hover {
-    background-color: #f1b8b0; /* Slightly darker on hover */
+    background-color: #f1b8b0;
 }
 
 button:active {
-    background-color: #ed9d8a; /* Even darker on active */
+    background-color: #ed9d8a;
 }
 
 button:focus {
     outline: none;
 }
 
-.operator {
-    background-color: #f9c8b5; /* Soft peach for operators */
+button[data-value="CLEAR"] {
+    background-color: #f4a261;
 }
 
-.operator:hover {
-    background-color: #f1a697;
-}
-
-button#del {
-    background-color: #ff7070; /* Red for delete */
-}
-
-button#del:hover {
-    background-color: #e34d4d;
-}
-
-button#clear {
-    background-color: #f4a261; /* Orange for clear */
-}
-
-button#clear:hover {
+button[data-value="CLEAR"]:hover {
     background-color: #e58543;
 }
 
+button[data-value="DEL"] {
+    background-color: #ff7070;
+}
+
+button[data-value="DEL"]:hover {
+    background-color: #e34d4d;
+}
+
 button.equals {
-    background-color: #2a9d8f; /* Teal for equals */
+    grid-column: span 4; 
+    background-color: #2a9d8f;
 }
 
 button.equals:hover {
@@ -125,18 +102,16 @@ button.equals:hover {
     background-color: #fff;
     padding: 20px;
     border-radius: 15px;
-    width: 100%;
-    height: 100%;
 }
 
 h4 {
     margin-bottom: 15px;
-    color: #f9d8d1; /* Soft pink header */
+    color: #f9d8d1;
 }
 
 .historyContainer {
-    overflow-y: auto;
-    max-height: 300px;
+    overflow-y: auto; 
+    max-height: 300px; 
 }
 
 .historyItem {
@@ -144,14 +119,6 @@ h4 {
     justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #ddd;
-}
-
-.historyItem div:first-child {
-    color: #333;
-}
-
-.historyItem div:last-child {
-    color: #888;
 }
 
 .historyItem button {
@@ -170,7 +137,7 @@ h4 {
 }
 
 .clearHistoryBtn {
-    background-color: #f4a261; /* Clear history button (orange) */
+    background-color: #f4a261;
     padding: 10px;
     font-size: 1.3rem;
     color: white;
@@ -192,6 +159,6 @@ h4 {
     }
 
     .rightSide {
-        display: none;
+        display: none; 
     }
 }
