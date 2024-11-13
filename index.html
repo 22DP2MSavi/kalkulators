@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="leftSide">
+            <input type="text" id="input" placeholder="Enter expression">
+            <div class="buttons">
+                <!-- 3x3 Grid of Number Buttons (1-9) -->
+                <div class="numberGrid">
+                    <button class="button">7</button>
+                    <button class="button">8</button>
+                    <button class="button">9</button>
+
+                    <button class="button">4</button>
+                    <button class="button">5</button>
+                    <button class="button">6</button>
+
+                    <button class="button">1</button>
+                    <button class="button">2</button>
+                    <button class="button">3</button>
+                </div>
+
+                <!-- Operators Row -->
+                <div class="operatorGrid">
+                    <button class="button operator">+</button>
+                    <button class="button operator">-</button>
+                    <button class="button operator">/</button>
+                    <button class="button operator">*</button>
+                </div>
+
+                <!-- 0, DEL and CLEAR -->
+                <div class="bottomRow">
+                    <button class="button">0</button>
+                    <button class="button" id="del">DEL</button>
+                    <button class="button" id="clear">CLEAR</button>
+                </div>
+
+                <!-- Equals Button -->
+                <div class="equalsRow">
+                    <button class="button equals">=</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="rightSide">
+            <h4>HISTORY</h4>
+            <button class="clearHistoryBtn">Clear History</button>
+            <div class="historyContainer"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
