@@ -24,16 +24,21 @@ buttons.forEach(button => { // Cikls katrai pogai
 // Funkcija "=" pogas apstrādei
 function handleEqual() {
     try {
-        const expression = inputEl.value; // Ievadītā izteiksme
-        const result = eval(expression); // Aprēķina rezultātu
+        let expression = inputEl.value; // Get the input expression
 
-        inputEl.value = result; // Parāda rezultātu ievades laukumā
-        saveHistory(expression, result); // Saglabā rezultātu vēsturē
-        refreshHistory(); // Atjauno vēstures sadaļu
+        // Remove leading zeros in numbers (except for the number zero itself)
+        expression = expression.replace(/(^|\D)0+(?=\d)/g, '$1'); // Replace leading zeros in numbers
+
+        const result = eval(expression); // Evaluate the expression
+
+        inputEl.value = result; // Display the result in the input field
+        saveHistory(expression, result); // Save the expression and result to history
+        refreshHistory(); // Refresh the history section
     } catch {
-        inputEl.value = 'ERROR'; // Kļūda, ja nepareiza izteiksme
+        inputEl.value = 'ERROR'; // Display error if the expression is invalid
     }
 }
+
 
 // Funkcija rezultāta un izteiksmes saglabāšanai vēsturē
 function saveHistory(expression, result) {

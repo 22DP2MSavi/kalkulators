@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f1eb;
+    background-color: #f2fffd;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,20 +82,20 @@ button[data-value="CLEAR"]:hover {
 }
 
 button[data-value="DEL"] {
-    background-color: #ff7070;
+    background-color: #ff8c8c;
 }
 
 button[data-value="DEL"]:hover {
-    background-color: #e34d4d;
+    background-color: #eb6b6b;
 }
 
 button.equals {
     grid-column: span 4; 
-    background-color: #2a9d8f;
+    background-color: #63dacc;
 }
 
 button.equals:hover {
-    background-color: #1f7b6b;
+    background-color: #43a192;
 }
 
 .rightSide {
